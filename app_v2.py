@@ -83,13 +83,13 @@ def main():
     if st.sidebar.button("🔍 Analyze & Optimize", type="primary"):
         
         # Show progress
-        progress_bar = st.progress(0)
+        progress_bar = st.progress(0.0)
         status_text = st.empty()
         
         try:
             # Step 1: Fetch index data
             status_text.text("📊 Fetching index data...")
-            progress_bar.progress(20)
+            progress_bar.progress(0.2)
             
             index_symbol = indices[selected_index]
             
@@ -112,7 +112,7 @@ def main():
             
             # Step 2: Determine market regime
             status_text.text("🔍 Analyzing market conditions...")
-            progress_bar.progress(40)
+            progress_bar.progress(0.4)
             
             # Look at 30-day window around target date
             window_start = target_date - timedelta(days=15)
@@ -127,7 +127,7 @@ def main():
             
             # Step 3: Fetch fund data
             status_text.text("💼 Fetching fund data...")
-            progress_bar.progress(60)
+            progress_bar.progress(0.6)
             
             # Determine fund list based on user selection
             if fund_universe == "Popular ETFs & Mutual Funds (~27)":
@@ -149,7 +149,7 @@ def main():
                     continue
                 
                 # Update progress
-                progress_bar.progress(60 + (i / len(fund_list)) * 20)
+                progress_bar.progress(0.6 + (i / len(fund_list)) * 0.2)
             
             if len(valid_funds) < num_funds:
                 st.warning(f"⚠️ Only found {len(valid_funds)} valid funds. Adjusting portfolio size.")
@@ -157,7 +157,7 @@ def main():
             
             # Step 4: Calculate returns and optimize
             status_text.text("🎯 Optimizing portfolio...")
-            progress_bar.progress(85)
+            progress_bar.progress(0.85)
             
             # Create returns dataframe
             fund_returns = pd.DataFrame()
@@ -214,7 +214,7 @@ def main():
             # Equal weight allocation (can be enhanced with optimization)
             weights = [1/num_funds] * num_funds
             
-            progress_bar.progress(100)
+            progress_bar.progress(1.0)
             status_text.text("✅ Analysis complete!")
             
             # Clear progress indicators
